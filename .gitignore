@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Env — NEVER commit .env
+.env
+.env.local
+.env.*.local
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Docker volumes
+postgres-data/
+
+# Logs (keep the JSONL but not runtime logs)
+*.log
+!logs/commands.jsonl
+
+# Demo (large binary — commit separately or link from README)
+demo/*.mp4
+
+# OS
+.DS_Store
+Thumbs.db
