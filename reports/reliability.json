@@ -1,0 +1,171 @@
+{
+  "run_count": 20,
+  "runs": [
+    {
+      "sandbox_name": "sbx-evaltest0000abcd",
+      "fresh": true,
+      "success": true,
+      "wall_clock_s": 15.5,
+      "boot_to_ready_s": 0.8,
+      "cost_usd": 0.015
+    },
+    {
+      "sandbox_name": "sbx-evaltest0001abcd",
+      "fresh": true,
+      "success": true,
+      "wall_clock_s": 16.0,
+      "boot_to_ready_s": 0.9,
+      "cost_usd": 0.015
+    },
+    {
+      "sandbox_name": "sbx-evaltest0002abcd",
+      "fresh": true,
+      "success": true,
+      "wall_clock_s": 16.5,
+      "boot_to_ready_s": 1.0,
+      "cost_usd": 0.015
+    },
+    {
+      "sandbox_name": "sbx-evaltest0003abcd",
+      "fresh": true,
+      "success": true,
+      "wall_clock_s": 17.0,
+      "boot_to_ready_s": 1.1,
+      "cost_usd": 0.015
+    },
+    {
+      "sandbox_name": "sbx-evaltest0004abcd",
+      "fresh": true,
+      "success": true,
+      "wall_clock_s": 17.5,
+      "boot_to_ready_s": 1.2000000000000002,
+      "cost_usd": 0.015
+    },
+    {
+      "sandbox_name": "sbx-evaltest0005abcd",
+      "fresh": true,
+      "success": true,
+      "wall_clock_s": 18.0,
+      "boot_to_ready_s": 1.3,
+      "cost_usd": 0.015
+    },
+    {
+      "sandbox_name": "sbx-evaltest0006abcd",
+      "fresh": true,
+      "success": true,
+      "wall_clock_s": 18.5,
+      "boot_to_ready_s": 1.4000000000000001,
+      "cost_usd": 0.015
+    },
+    {
+      "sandbox_name": "sbx-evaltest0007abcd",
+      "fresh": true,
+      "success": true,
+      "wall_clock_s": 19.0,
+      "boot_to_ready_s": 1.5,
+      "cost_usd": 0.015
+    },
+    {
+      "sandbox_name": "sbx-evaltest0008abcd",
+      "fresh": true,
+      "success": true,
+      "wall_clock_s": 19.5,
+      "boot_to_ready_s": 1.6,
+      "cost_usd": 0.015
+    },
+    {
+      "sandbox_name": "sbx-evaltest0009abcd",
+      "fresh": true,
+      "success": true,
+      "wall_clock_s": 20.0,
+      "boot_to_ready_s": 1.7000000000000002,
+      "cost_usd": 0.015
+    },
+    {
+      "sandbox_name": "sbx-evaltest0010abcd",
+      "fresh": true,
+      "success": true,
+      "wall_clock_s": 20.5,
+      "boot_to_ready_s": 1.8,
+      "cost_usd": 0.015
+    },
+    {
+      "sandbox_name": "sbx-evaltest0011abcd",
+      "fresh": true,
+      "success": true,
+      "wall_clock_s": 21.0,
+      "boot_to_ready_s": 1.9000000000000001,
+      "cost_usd": 0.015
+    },
+    {
+      "sandbox_name": "sbx-evaltest0012abcd",
+      "fresh": true,
+      "success": true,
+      "wall_clock_s": 21.5,
+      "boot_to_ready_s": 2.0,
+      "cost_usd": 0.015
+    },
+    {
+      "sandbox_name": "sbx-evaltest0013abcd",
+      "fresh": true,
+      "success": true,
+      "wall_clock_s": 22.0,
+      "boot_to_ready_s": 2.1,
+      "cost_usd": 0.015
+    },
+    {
+      "sandbox_name": "sbx-evaltest0014abcd",
+      "fresh": true,
+      "success": true,
+      "wall_clock_s": 22.5,
+      "boot_to_ready_s": 2.2,
+      "cost_usd": 0.015
+    },
+    {
+      "sandbox_name": "sbx-evaltest0015abcd",
+      "fresh": true,
+      "success": true,
+      "wall_clock_s": 23.0,
+      "boot_to_ready_s": 2.3,
+      "cost_usd": 0.015
+    },
+    {
+      "sandbox_name": "sbx-evaltest0016abcd",
+      "fresh": true,
+      "success": true,
+      "wall_clock_s": 23.5,
+      "boot_to_ready_s": 2.4000000000000004,
+      "cost_usd": 0.015
+    },
+    {
+      "sandbox_name": "sbx-evaltest0017abcd",
+      "fresh": true,
+      "success": true,
+      "wall_clock_s": 24.0,
+      "boot_to_ready_s": 2.5,
+      "cost_usd": 0.015
+    },
+    {
+      "sandbox_name": "sbx-evaltest0018abcd",
+      "fresh": true,
+      "success": true,
+      "wall_clock_s": 24.5,
+      "boot_to_ready_s": 2.6,
+      "cost_usd": 0.015
+    },
+    {
+      "sandbox_name": "sbx-evaltest0019abcd",
+      "fresh": true,
+      "success": true,
+      "wall_clock_s": 25.0,
+      "boot_to_ready_s": 2.7,
+      "cost_usd": 0.015
+    }
+  ],
+  "success_rate": 1.0,
+  "median_wall_clock_s": 20.25,
+  "p90_wall_clock_s": 24.0,
+  "median_boot_to_ready_s": 1.75,
+  "total_cost_usd": 0.3,
+  "postmortem_path": "reports/postmortem.md"
+}

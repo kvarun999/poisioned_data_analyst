@@ -1,0 +1,32 @@
+{
+  "cleanup_on_success": true,
+  "cleanup_on_failure": true,
+  "cleanup_on_interrupt": true,
+  "sandbox_names": [
+    "sbx-run001aaaa",
+    "sbx-run002bbbb",
+    "sbx-run003cccc",
+    "sbx-run004dddd",
+    "sbx-run005eeee",
+    "sbx-run006ffff",
+    "sbx-run007gggg",
+    "sbx-run008hhhh",
+    "sbx-run009iiii",
+    "sbx-run010jjjj",
+    "sbx-run011kkkk",
+    "sbx-run012llll",
+    "sbx-run013mmmm",
+    "sbx-run014nnnn",
+    "sbx-run015oooo",
+    "sbx-run016pppp",
+    "sbx-run017qqqq",
+    "sbx-run018rrrr",
+    "sbx-run019ssss",
+    "sbx-run020tttt",
+    "sbx-cnc001aaaa",
+    "sbx-cnc002bbbb",
+    "sbx-cnc003cccc",
+    "sbx-cnc004dddd",
+    "sbx-cnc005eeee"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "who": "Data engineering teams and analysts who use LLMs to automate the processing and summarizing of user-uploaded datasets such as CSVs, logs, and Excel files. These teams need to run untrusted LLM-generated pandas code safely without risking their host infrastructure.",
+  "agent_work": "The agent receives a CSV file via the API, writes Python pandas analysis code, and executes that code inside an isolated Celesto Firecracker microVM. It takes a snapshot before risky steps, applies network policy, and returns structured analysis results.",
+  "proof_output": "A generated analysis_result.json containing column statistics, shape, dtypes, and sample rows, stored in the Postgres run ledger with state=succeeded.",
+  "idea_source": "idea_bank"
+}

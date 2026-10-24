@@ -1,0 +1,19 @@
+{
+  "capabilities": [
+    {
+      "id": "snapshots",
+      "why": "Before running the untrusted LLM-generated pandas analysis script (Step 7), the agent takes a Celesto snapshot of the clean, configured sandbox. If Step 7 fails (the designed crash point), the system rolls back to this snapshot instead of starting from scratch, saving the cost of reinstalling pandas and re-uploading data. This trades a small snapshot overhead for significant recovery speed and reproducibility.",
+      "evidence_path": "reports/failure_trace.jsonl"
+    },
+    {
+      "id": "network_policy",
+      "why": "After the setup phase (pandas install), outbound internet access is disabled inside the sandbox via Celesto network policy. This is the primary defence against prompt-injection exfiltration: even if a poisoned CSV instructs the agent to curl an attacker-controlled endpoint with the LLM_API_KEY, the network-off policy ensures the packet never leaves the microVM guest. The containment test validates this defence end-to-end with a real poisoned CSV.",
+      "evidence_path": "reports/containment.json"
+    },
+    {
+      "id": "safety_hooks",
+      "why": "A pre-command Python callback (safety_hook) runs on the host before every command is forwarded to the guest sandbox. It inspects the command string against a blocklist of destructive patterns (rm -rf /, dd if=/dev/zero) and exfiltration signatures (curl.*API_KEY). Blocked commands are still appended to the audit log with decision=block. This provides a host-level, code-enforced guardrail that is completely separate from the LLM system prompt and cannot be bypassed by prompt injection alone.",
+      "evidence_path": "logs/commands.jsonl"
+    }
+  ]
+}

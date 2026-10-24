@@ -1,0 +1,7 @@
+{
+  "failed_step": 7,
+  "total_steps": 10,
+  "policy": "rollback",
+  "rationale": "When Step 7 (the LLM-generated pandas analysis) fails, the agent rolls back to the snapshot taken at Step 3 (clean environment with pandas installed, CSV uploaded). This policy was chosen over 'resume' because a mid-script failure may leave corrupt output files or partially written state that would contaminate a retry. Rolling back to the known-good snapshot guarantees the retry sees a clean workspace. It was chosen over 'fresh' because the snapshot preserves the pip install (Step 2) and CSV upload (Step 4), saving 20–30 seconds per retry compared to recreating the sandbox from scratch. The rollback policy is optimal for this use case: the expensive setup work (install, upload) is preserved, while the dirty execution state (failed script, partial output) is discarded. The cost of storing the snapshot disk diff is negligible (~50MB) compared to the time saved on recovery.",
+  "trace_path": "reports/failure_trace.jsonl"
+}

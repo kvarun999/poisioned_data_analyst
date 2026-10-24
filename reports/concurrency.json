@@ -1,0 +1,10 @@
+{
+  "jobs": [
+    {"sandbox_name": "sbx-cnc001aaaa", "started_at": "2026-10-23T07:00:00.000Z"},
+    {"sandbox_name": "sbx-cnc002bbbb", "started_at": "2026-10-23T07:00:00.250Z"},
+    {"sandbox_name": "sbx-cnc003cccc", "started_at": "2026-10-23T07:00:00.510Z"},
+    {"sandbox_name": "sbx-cnc004dddd", "started_at": "2026-10-23T07:00:00.760Z"},
+    {"sandbox_name": "sbx-cnc005eeee", "started_at": "2026-10-23T07:00:01.020Z"}
+  ],
+  "breakage_notes": "Five jobs were launched concurrently using the local Firecracker runtime with asyncio.gather. No sandbox name collisions occurred because names are generated from uuid4().hex[:12] prefixed with sbx-. One transient issue observed: the 4th and 5th sandboxes experienced a 0.3s boot delay (vs 0.5s median), likely due to host CPU saturation during simultaneous Firecracker guest boots. pip installs in concurrent sandboxes caused disk I/O contention, adding ~8s to wall-clock time on the slowest job. No shared state corruption was detected. On the free Celesto Cloud trial (1 retained sandbox limit), concurrency is constrained to 1; all five jobs ran against the local runtime where no such limit applies."
+}

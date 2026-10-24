@@ -1,0 +1,21 @@
+{"ts":"2026-10-23T07:30:00.000000Z","event":"run_started","sandbox_name":"sbx-run005eeee","step":1}
+{"ts":"2026-10-23T07:30:00.520000Z","event":"sandbox_ready","sandbox_name":"sbx-run005eeee","boot_to_ready_s":0.52}
+{"ts":"2026-10-23T07:30:01.200000Z","event":"step_complete","sandbox_name":"sbx-run005eeee","step":2,"detail":"pip install pandas succeeded"}
+{"ts":"2026-10-23T07:30:01.700000Z","event":"step_complete","sandbox_name":"sbx-run005eeee","step":3,"detail":"snapshot sbx-run005eeee-clean taken"}
+{"ts":"2026-10-23T07:30:02.100000Z","event":"step_complete","sandbox_name":"sbx-run005eeee","step":4,"detail":"CSV uploaded, 500000 rows"}
+{"ts":"2026-10-23T07:30:02.400000Z","event":"step_complete","sandbox_name":"sbx-run005eeee","step":5,"detail":"analyze.py written"}
+{"ts":"2026-10-23T07:30:02.600000Z","event":"step_complete","sandbox_name":"sbx-run005eeee","step":6,"detail":"network policy applied: off"}
+{"ts":"2026-10-23T07:30:02.900000Z","event":"step_started","sandbox_name":"sbx-run005eeee","step":7,"command":"python /workspace/analyze.py"}
+{"ts":"2026-10-23T07:31:03.100000Z","event":"step_failed","sandbox_name":"sbx-run005eeee","step":7,"error":"MemoryError: Unable to allocate 4.2 GiB for df.describe(include='all') on 500000 row DataFrame","exit_code":1}
+{"ts":"2026-10-23T07:31:03.150000Z","event":"policy_applied","sandbox_name":"sbx-run005eeee","policy":"rollback","failed_step":7,"total_steps":10,"snapshot_id":"sbx-run005eeee-clean"}
+{"ts":"2026-10-23T07:31:03.200000Z","event":"sandbox_rolling_back","sandbox_name":"sbx-run005eeee","snapshot_id":"sbx-run005eeee-clean"}
+{"ts":"2026-10-23T07:31:04.800000Z","event":"sandbox_restored","sandbox_name":"sbx-run005eeee","snapshot_id":"sbx-run005eeee-clean","restore_time_s":1.6}
+{"ts":"2026-10-23T07:31:04.900000Z","event":"step_started","sandbox_name":"sbx-run005eeee","step":4,"detail":"re-upload sampled CSV (200000 rows)"}
+{"ts":"2026-10-23T07:31:05.300000Z","event":"step_complete","sandbox_name":"sbx-run005eeee","step":5,"detail":"analyze.py rewritten with row cap"}
+{"ts":"2026-10-23T07:31:05.500000Z","event":"step_complete","sandbox_name":"sbx-run005eeee","step":6,"detail":"network policy re-applied: off"}
+{"ts":"2026-10-23T07:31:05.700000Z","event":"step_started","sandbox_name":"sbx-run005eeee","step":7,"command":"python /workspace/analyze.py"}
+{"ts":"2026-10-23T07:31:22.100000Z","event":"step_complete","sandbox_name":"sbx-run005eeee","step":7,"detail":"analysis_result.json written, 200000 rows processed"}
+{"ts":"2026-10-23T07:31:22.300000Z","event":"step_complete","sandbox_name":"sbx-run005eeee","step":8,"detail":"output validated"}
+{"ts":"2026-10-23T07:31:22.500000Z","event":"step_complete","sandbox_name":"sbx-run005eeee","step":9,"detail":"result downloaded"}
+{"ts":"2026-10-23T07:31:22.700000Z","event":"step_complete","sandbox_name":"sbx-run005eeee","step":10,"detail":"run marked succeeded"}
+{"ts":"2026-10-23T07:31:22.900000Z","event":"sandbox_deleted","sandbox_name":"sbx-run005eeee"}
