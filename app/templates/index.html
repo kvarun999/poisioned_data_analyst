@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Poisoned Data Analyst</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">AI sandbox for data analysis</p>
+          <h1>Poisoned Data Analyst</h1>
+        </div>
+        <span class="badge">Safe-by-default</span>
+      </header>
+
+      <div class="hero-chips" aria-label="Product highlights">
+        <span>Prompt-injection defense</span>
+        <span>Sandboxed execution</span>
+        <span>Audit trail</span>
+        <span>Rollback-ready</span>
+      </div>
+
+      <div id="mode-indicator" class="mode-indicator" aria-live="polite">
+        Checking execution mode...
+      </div>
+
+      <main class="layout">
+        <section class="panel form-panel">
+          <h2>Upload dataset</h2>
+          <p class="panel-copy">
+            Securely analyze a CSV with an LLM-assisted workflow while keeping the host machine,
+            credentials, and network boundary isolated.
+          </p>
+
+          <form id="analysis-form">
+            <label class="field">
+              <span>CSV file</span>
+              <input id="file" name="file" type="file" accept=".csv,.xlsx,.xls,.txt" required />
+            </label>
+
+            <label class="field">
+              <span>Prompt</span>
+              <textarea id="prompt" name="prompt" rows="4" placeholder="Describe what you want the agent to check in the dataset"></textarea>
+            </label>
+
+            <button id="submit-btn" type="submit">Run analysis</button>
+          </form>
+
+          <div id="status" class="status" aria-live="polite">
+            Ready to inspect a CSV file.
+          </div>
+        </section>
+
+        <aside class="panel results-panel">
+          <div class="panel-header-row">
+            <h2>Latest result</h2>
+            <span class="micro-pill">Live output</span>
+          </div>
+          <div id="result-box" class="result-box empty">
+            No result yet.
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
