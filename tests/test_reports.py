@@ -309,6 +309,23 @@ class TestReadme:
             assert phrase in self.text, f"Missing phrase in README: '{phrase}'"
 
 
+class TestFrontendAndUpload:
+    def test_homepage_is_served(self):
+        r = httpx.get(f"{API_BASE}/", timeout=5)
+        assert r.status_code == 200
+        assert "Poisoned Data Analyst" in r.text
+
+    def test_analysis_upload_works(self):
+        csv = b"id,amount\n1,100\n2,200\n"
+        files = {"file": ("sales.csv", csv, "text/csv")}
+        data = {"prompt": "Calculate total sales"}
+        r = httpx.post(f"{API_BASE}/analyze", files=files, data=data, timeout=15)
+        assert r.status_code == 200, r.text
+        body = r.json()
+        assert body["status"] in {"succeeded", "queued"}
+        assert "run_id" in body
+
+
 # ─── Live API Tests ───────────────────────────────────────────────────────────
 class TestAPI:
     def test_health(self):
