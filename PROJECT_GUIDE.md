@@ -84,7 +84,7 @@ Creates the pandas script that inspects the uploaded CSV.
 
 This is the HTML page users see in the browser.
 
-It gives the app a simple upload form and a result area.
+It currently uses a more polished, professional dashboard layout for the data-analysis sandbox rather than the earlier rougher prototype. The page includes a product-style header, security-aware status blocks, and a modern upload/result workflow.
 
 ### [app/static/app.js](app/static/app.js)
 
@@ -93,10 +93,13 @@ This file handles the browser-side logic:
 - fetches the upload request
 - sends the file to `/analyze`
 - displays the result JSON or summary on the page
+- updates the sandbox live-state labels and status cards
 
 ### [app/static/styles.css](app/static/styles.css)
 
 This is the visual styling for the app UI.
+
+The design has been refreshed to a light, enterprise-oriented palette with cleaner cards, modern spacing, stronger contrast, and more polished controls. The page now reads more like a security tooling dashboard while still remaining simple and usable in a local demo environment.
 
 ## 5. Security and containment features
 

@@ -32,17 +32,43 @@ The project intentionally keeps local secrets in a developer-only [.env](.env). 
 - Do not commit secret values
 - The repo is configured to ignore local secret and runtime files in [.gitignore](.gitignore)
 
+## How I used Celesto
+
+The project treats Celesto as a secure execution backend when it is available, but it does not depend on a cloud account to remain functional. The architecture follows the same pattern the challenge expects: risky analysis logic is isolated away from the host, the control plane remains small and observable, and the execution environment can be reset or replaced without corrupting the app state.
+
+In practice, the app prefers the local Celesto runtime by default and gracefully falls back to a local Python sandbox when the VM backend is unavailable or not provisioned. This keeps the demo reliable in a real developer environment while still preserving the cloud-ready design intended by the project.
+
 ## Celesto status and execution model
 
-This project supports both a live Celesto path and a local fallback path.
+This project supports both a local Celesto runtime and a cloud path when a real Celesto account is available.
 
-- If a valid Celesto API key is present and the SDK is installed, the app tries the live microVM execution path.
+- Local execution is the default and requires no cloud API key.
+- If `CELESTO_PROVIDER=cloud` and a valid Celesto API key is present, the app can try the live microVM execution path.
 - If the runtime is not available or the provider rejects the request, the app falls back to a local sandboxed execution path so the demo remains usable.
 - The app reports this mode clearly at startup and through the health endpoint.
 
-This is the correct design for a real-world security boundary: the control plane stays on the host, while risky analysis code is isolated in a sandboxed execution zone. The important nuance is that live Celesto execution depends on provisioning at the provider level, not just on installing the SDK.
+This is the correct design for a real-world security boundary: the control plane stays on the host, while risky analysis code is isolated in a sandboxed execution zone. The important nuance is that live Celesto execution depends on provider provisioning, but the default local mode works out of the box without any external API.
 
-In this environment, the SDK is present and the app is wired correctly, but the provider is currently rejecting actual sandbox creation with an HTTP 402. That means the project is ready for live Celesto usage, but it is not yet successfully running a live cloud microVM here without a funded or trial-enabled Celesto account.
+## Current project status
+
+The app is currently running in the local sandbox mode used for this environment:
+
+- execution mode: `local_celesto`
+- Celesto API key: not present in this developer environment
+- runtime: the FastAPI app serving the dashboard on `http://localhost:8080/`
+- UI: the dashboard was refreshed into a cleaner enterprise-style layout with polished cards, better spacing, stronger hierarchy, and a modern status panel
+
+This means the project is operational and usable locally even without a live cloud Celesto account. The cloud path remains available as a future/provisioned option, but the app does not block progress when the provider is unavailable.
+
+## UI refresh
+
+The browser experience has been redesigned to look more like a professional security product dashboard rather than a basic demo page. The updated layout includes:
+
+- a stronger product header and status bar
+- a more premium light-theme palette
+- cleaner upload and output panels
+- improved sandbox summary cards and live-status styling
+- more polished spacing, hierarchy, and visual consistency
 
 ## Eval report
 

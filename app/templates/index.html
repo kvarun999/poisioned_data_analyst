@@ -4,63 +4,123 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Poisoned Data Analyst</title>
+    <meta
+      name="description"
+      content="Secure AI-driven data analysis sandbox for detecting prompt-injection risks and isolating execution."
+    />
     <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body>
-    <div class="shell">
+    <div class="page-shell">
       <header class="topbar">
-        <div>
-          <p class="eyebrow">AI sandbox for data analysis</p>
-          <h1>Poisoned Data Analyst</h1>
+        <div class="brand-wrap">
+          <div class="brand-mark">P</div>
+          <div>
+            <p class="eyebrow">AI security workspace</p>
+            <h1>Poisoned Data Analyst</h1>
+          </div>
         </div>
-        <span class="badge">Safe-by-default</span>
+
+        <div class="topbar-actions">
+          <span class="status-badge">
+            <span class="status-dot"></span>
+            Protected
+          </span>
+          <button type="button" class="ghost-button">View reports</button>
+        </div>
       </header>
 
-      <div class="hero-chips" aria-label="Product highlights">
+      <section class="hero-panel" aria-live="polite">
+        <div class="hero-copy">
+          <p class="eyebrow text-compact">Operational sandbox</p>
+          <h2>Safe analysis for sensitive datasets.</h2>
+          <p>
+            Isolate model-driven analysis inside a hardened environment with prompt-injection
+            detection, audit logging, and controlled execution boundaries.
+          </p>
+        </div>
+
+        <div class="hero-metrics" aria-label="Sandbox summary">
+          <div class="metric-card">
+            <span class="metric-label">Mode</span>
+            <strong id="execution-mode-label">Checking…</strong>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Network</span>
+            <strong>Blocked</strong>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Files</span>
+            <strong>Read-only</strong>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Audit</span>
+            <strong id="audit-status">Active</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="tenant-strip" aria-label="Product highlights">
         <span>Prompt-injection defense</span>
         <span>Sandboxed execution</span>
         <span>Audit trail</span>
         <span>Rollback-ready</span>
-      </div>
+      </section>
 
-      <div id="mode-indicator" class="mode-indicator" aria-live="polite">
-        Checking execution mode...
-      </div>
-
-      <main class="layout">
+      <main class="content-grid">
         <section class="panel form-panel">
-          <h2>Upload dataset</h2>
+          <div class="panel-heading-row">
+            <div>
+              <p class="section-kicker">Dataset intake</p>
+              <h3>Upload and analyze</h3>
+            </div>
+            <span class="chip safe-chip">Safe upload</span>
+          </div>
+
           <p class="panel-copy">
-            Securely analyze a CSV with an LLM-assisted workflow while keeping the host machine,
-            credentials, and network boundary isolated.
+            Submit a CSV to perform a controlled review inside an isolated runtime while preserving
+            the host environment and access boundaries.
           </p>
 
-          <form id="analysis-form">
+          <form id="analysis-form" class="analysis-form">
             <label class="field">
               <span>CSV file</span>
               <input id="file" name="file" type="file" accept=".csv,.xlsx,.xls,.txt" required />
             </label>
 
             <label class="field">
-              <span>Prompt</span>
-              <textarea id="prompt" name="prompt" rows="4" placeholder="Describe what you want the agent to check in the dataset"></textarea>
+              <span>Analyst prompt</span>
+              <textarea
+                id="prompt"
+                name="prompt"
+                rows="5"
+                placeholder="Describe the data checks, anomalies, or risks you want the sandboxed agent to investigate"
+              ></textarea>
             </label>
 
             <button id="submit-btn" type="submit">Run analysis</button>
           </form>
 
-          <div id="status" class="status" aria-live="polite">
-            Ready to inspect a CSV file.
-          </div>
+          <div id="status" class="status" aria-live="polite">Ready to inspect a CSV file.</div>
         </section>
 
-        <aside class="panel results-panel">
-          <div class="panel-header-row">
-            <h2>Latest result</h2>
-            <span class="micro-pill">Live output</span>
+        <aside class="panel activity-panel">
+          <div class="panel-heading-row">
+            <div>
+              <p class="section-kicker">Runtime status</p>
+              <h3>Sandbox activity</h3>
+            </div>
+            <span class="chip live-chip">
+              <span class="live-dot-small"></span>
+              <span id="sandbox-live-label">Sandbox ready</span>
+            </span>
           </div>
+
           <div id="result-box" class="result-box empty">
-            No result yet.
+            <div class="empty-state">
+              <strong>No analysis started</strong>
+              <span>Results will appear here after the sandbox completes.</span>
+            </div>
           </div>
         </aside>
       </main>
