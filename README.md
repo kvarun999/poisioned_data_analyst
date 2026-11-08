@@ -21,7 +21,7 @@ The app isolates the risky analysis inside a sandbox and logs every command befo
 - Local execution fallback when the Celesto SDK is unavailable
 - Celesto-ready execution path for isolated sandboxing
 - Report package that captures reliability, lifecycle, failures, and containment evidence
-- Front-end UI for uploading and inspecting results
+- High-fidelity enterprise security dashboard UI with dark/light themes, attack simulator, threat anatomy breakdown, live execution logs, and searchable database run ledger
 
 ## Safe environment handling
 
@@ -54,21 +54,26 @@ This is the correct design for a real-world security boundary: the control plane
 The app is currently running in the local sandbox mode used for this environment:
 
 - execution mode: `local_celesto`
-- Celesto API key: not present in this developer environment
+- Celesto API key: not present in this developer environment (local execution enabled)
 - runtime: the FastAPI app serving the dashboard on `http://localhost:8080/`
-- UI: the dashboard was refreshed into a cleaner enterprise-style layout with polished cards, better spacing, stronger hierarchy, and a modern status panel
+- UI: enterprise cyber SOC dashboard featuring dark & light theme modes, 1-click attack simulation presets, interactive threat anatomy, real-time execution console logs, containment matrix, and a searchable database run ledger
+- validation: 50 tests passing across unit, contract, report, and API validation suites
 
 This means the project is operational and usable locally even without a live cloud Celesto account. The cloud path remains available as a future/provisioned option, but the app does not block progress when the provider is unavailable.
 
-## UI refresh
+## UI refresh & security operations center (SOC) dashboard
 
-The browser experience has been redesigned to look more like a professional security product dashboard rather than a basic demo page. The updated layout includes:
+The browser experience is built as an enterprise-grade AI security operations console:
 
-- a stronger product header and status bar
-- a more premium light-theme palette
-- cleaner upload and output panels
-- improved sandbox summary cards and live-status styling
-- more polished spacing, hierarchy, and visual consistency
+- **Dual-Theme Support**: Obsidian Dark mode (default) and Crisp Light mode with instant topbar toggle (`☀️ Light` / `🌙 Dark`) and persistent state.
+- **Interactive Attack Simulation Studio**: 1-click testing presets for *Clean Sales Data*, *Direct Prompt Injection* (`test_payloads/01_direct_prompt_injection.csv`), *Command & Exfiltration Attack* (`test_payloads/02_os_command_exfiltration.csv`), and *Dev Mode Hijack* (`test_payloads/03_dev_mode_takeover.csv`).
+- **Threat Anatomy & Payload Inspector**: Automatically highlights the targeted CWE vulnerability, extracts the exact hostile CSV payload line, explains the attacker's intent, and details the sandbox defense countermeasure.
+- **Security Containment Scoreboard Matrix**: Real-time status dials for Network Egress (`BLOCKED 0 B`), Host Integrity (`100% INTACT`), Pre-Safety Hook (`VERIFIED PASS`), and Sandbox Teardown (`CLEAN ROLLBACK READY`).
+- **Live Execution Console Stream**: Color-coded terminal stream showing host ingestion, safety hook evaluations, microVM provisioning, network policy enforcement, pandas execution, and database ledger persistence.
+- **Searchable Database Run Ledger**: Real-time search by Run ID or Sandbox name, plus state filter chips (`All`, `Succeeded`, `Failed`, `Deleted`) backed by the SQLite database.
+- **Data Sample Preview Table**: Formatted HTML table highlighting quarantined payload cells (`⚠️ Untrusted Payload Isolated`).
+- **Report & Data Export**: One-click Markdown Audit Report generation (`.md`) and raw JSON export.
+- **Architecture & Threat Model Modal**: Accessible via the "Threat Model" button in the topbar.
 
 ## Eval report
 
@@ -154,9 +159,11 @@ These files are kept separate so the project documentation, demo narrative, and 
 
 - [app/main.py](app/main.py) — main FastAPI app, safety logic, DB ledger, local fallback, Celesto orchestration
 - [app/templates/index.html](app/templates/index.html) — browser UI
-- [app/static/app.js](app/static/app.js) — front-end upload logic
-- [app/static/styles.css](app/static/styles.css) — UI styling
+- [app/static/app.js](app/static/app.js) — front-end upload logic, threat anatomy, terminal stream, and ledger search
+- [app/static/styles.css](app/static/styles.css) — enterprise cyber defense styling with dark and light themes
 - [tests/test_reports.py](tests/test_reports.py) — validation tests for the project contract
+- [tests/test_local_celesto_mode.py](tests/test_local_celesto_mode.py) — local Celesto mode configuration tests
+- [test_payloads](test_payloads) — sample attack vectors (prompt injection, command exfiltration, dev mode takeover)
 - [logs/commands.jsonl](logs/commands.jsonl) — audit log for commands and decisions
 - [reports](reports) — challenge evidence, failure traces, reliability metrics, and capability docs
 - [scripts](scripts) — helper scripts for report generation
@@ -190,7 +197,7 @@ DATABASE_URL=sqlite:///./poisoned_analyst.db uvicorn app.main:app --host 0.0.0.0
 ### Run the tests
 
 ```bash
-pytest tests/test_reports.py -q
+pytest tests/ -v
 ```
 
 ## Learn the project by reading in this order
@@ -206,12 +213,12 @@ pytest tests/test_reports.py -q
 The project is validated with:
 
 ```bash
-pytest tests/test_reports.py -q
+pytest tests/ -v
 ```
 
 Current verified result:
 
-- 49 tests passed
+- 50 tests passed (100% pass rate)
 
 ## Important note
 

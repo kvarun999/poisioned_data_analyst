@@ -84,22 +84,40 @@ Creates the pandas script that inspects the uploaded CSV.
 
 This is the HTML page users see in the browser.
 
-It currently uses a more polished, professional dashboard layout for the data-analysis sandbox rather than the earlier rougher prototype. The page includes a product-style header, security-aware status blocks, and a modern upload/result workflow.
+It is structured as an enterprise-grade AI security operations (SOC) dashboard. The layout includes:
+- Topbar telemetry with runtime mode, egress policy enforcement, audit logging status, and a 1-click Dark/Light theme toggle.
+- 4-pillar security architecture hero banner and pipeline stepper ribbon.
+- Interactive attack simulation studio with 1-click test datasets (Clean, Prompt Injection, Command Exfil, Dev Mode Takeover).
+- Real-time Threat Anatomy card breaking down the payload, attacker intent, and sandbox countermeasure.
+- Drag-and-drop CSV dropzone, file preview details, and quick prompt chips.
+- Result panel with a 4-dial Security Containment Scoreboard Matrix, KPI cards, and an AI executive summary.
+- Multi-tab analysis inspector: formatted Data Sample Table with poison payload highlighting, column schema types, live execution console logs, containment telemetry, and raw JSON.
+- Live, searchable, and filterable database run ledger explorer.
+- Deep-dive Threat Architecture modal guide.
 
 ### [app/static/app.js](app/static/app.js)
 
-This file handles the browser-side logic:
+This file handles the client-side interactivity and API communication:
 
-- fetches the upload request
-- sends the file to `/analyze`
-- displays the result JSON or summary on the page
-- updates the sandbox live-state labels and status cards
+- Theme management: toggles between Obsidian Dark and Crisp Light modes, persisting preference to `localStorage`.
+- Attack simulation engine: populates `File` and `Blob` datasets and prompts on the fly for 1-click demo runs.
+- Threat Anatomy controller: dynamically updates vulnerability classification, payload extracts, attacker goals, and defense countermeasures.
+- Drag-and-drop file processing with file size formatting and preview cards.
+- Multi-step execution stepper and live terminal console stream simulating microVM lifecycle events.
+- Form submission to `/analyze` with comprehensive handling for successful containment and safety hook blocks.
+- Real-time data table rendering with automatic poison keyword detection.
+- One-click Markdown report export (`.md`) and clipboard copy utilities.
+- Database ledger synchronization with `/api/runs`, featuring live search and state-filtering (`All`, `Succeeded`, `Failed`, `Deleted`).
 
 ### [app/static/styles.css](app/static/styles.css)
 
-This is the visual styling for the app UI.
+This is the visual design system for the platform:
 
-The design has been refreshed to a light, enterprise-oriented palette with cleaner cards, modern spacing, stronger contrast, and more polished controls. The page now reads more like a security tooling dashboard while still remaining simple and usable in a local demo environment.
+- Dual-theme styling: Flagship Obsidian Dark theme (`#0a0e17`) with subtle cyber glow effects and Crisp Slate Light theme (`#f8fafc`).
+- Clean CSS custom property system for rapid styling consistency.
+- High-contrast typography combining Plus Jakarta Sans and JetBrains Mono.
+- Glassmorphic card surfaces, refined hairline borders, and elevation drop shadows.
+- Status indicator glow animations, keyframe spinners, and responsive layouts for desktop, tablet, and mobile viewports.
 
 ## 5. Security and containment features
 

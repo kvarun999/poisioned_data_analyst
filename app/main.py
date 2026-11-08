@@ -14,6 +14,7 @@ import logging
 import os
 import re
 import subprocess
+import sys
 import tempfile
 import uuid
 from contextlib import asynccontextmanager
@@ -164,6 +165,7 @@ def db_insert_run(record: RunRecord) -> None:
 
 def resolve_execution_mode() -> Dict[str, Any]:
     api_key_present = bool((os.getenv("CELESTO_API_KEY") or "").strip())
+    provider = (os.getenv("CELESTO_PROVIDER", "local") or "local").strip().lower()
     sdk_available = False
 
     try:
@@ -173,7 +175,9 @@ def resolve_execution_mode() -> Dict[str, Any]:
     except Exception:  # pragma: no cover
         sdk_available = False
 
-    if api_key_present and sdk_available:
+    if provider == "local":
+        mode = "local_celesto" if sdk_available else "local_fallback"
+    elif api_key_present and sdk_available:
         mode = "live_celesto"
     elif api_key_present and not sdk_available:
         mode = "fallback_local_missing_sdk"
@@ -184,6 +188,7 @@ def resolve_execution_mode() -> Dict[str, Any]:
         "mode": mode,
         "celesto_api_key_present": api_key_present,
         "celesto_sdk_available": sdk_available,
+        "celesto_provider": provider,
     }
 
 
@@ -308,6 +313,9 @@ async def analyze(file: UploadFile = File(...), prompt: str = Form("")):
 
     try:
         result = await _run_analysis_pipeline(run_id, sandbox_name, content, prompt)
+    except HTTPException:
+        _update_state(run_id, sandbox_name, "failed")
+        raise
     except Exception as exc:
         logger.exception("Analysis failed for run_id=%s", run_id)
         _update_state(run_id, sandbox_name, "failed")
@@ -335,7 +343,7 @@ async def _run_analysis_pipeline(run_id: str, sandbox_name: str, csv_bytes: byte
 
     try:
         execution_mode = resolve_execution_mode()
-        if execution_mode["mode"] == "live_celesto":
+        if execution_mode["mode"] in {"live_celesto", "local_celesto"}:
             result = _run_celesto_job(run_id, sandbox_name, csv_bytes, prompt)
         else:
             result = _run_local_fallback(run_id, sandbox_name, csv_bytes, prompt)
@@ -356,8 +364,8 @@ def _run_local_fallback(run_id: str, sandbox_name: str, csv_bytes: bytes, prompt
         script_path = tmp_path / "analyze.py"
         script_path.write_text(_build_analysis_script(), encoding="utf-8")
 
-        cmd = ["python", str(script_path)]
-        if not safety_hook(sandbox_name, " ".join(cmd)):
+        cmd = [sys.executable, str(script_path)]
+        if not safety_hook(sandbox_name, f"python {script_path}"):
             raise RuntimeError("Safety hook blocked the local sandbox command")
 
         proc = subprocess.run(
@@ -384,10 +392,13 @@ def _run_celesto_job(run_id: str, sandbox_name: str, csv_bytes: bytes, prompt: s
         logger.warning("Celesto SDK unavailable; falling back to local execution")
         return _run_local_fallback(run_id, sandbox_name, csv_bytes, prompt)
 
+    provider_name = (os.getenv("CELESTO_PROVIDER", "local") or "local").strip().lower()
+    provider_to_use = "cloud" if provider_name == "cloud" else "local"
+
     comp = None
     try:
-        logger.info("[%s] Starting Celesto sandbox", sandbox_name)
-        comp = Computer(provider=CELESTO_PROVIDER)
+        logger.info("[%s] Starting Celesto sandbox using provider=%s", sandbox_name, provider_to_use)
+        comp = Computer(provider=provider_to_use)
         comp.start()
         audit_command(sandbox_name, "# celesto sandbox started", "allow")
 
@@ -425,6 +436,9 @@ def _run_celesto_job(run_id: str, sandbox_name: str, csv_bytes: bytes, prompt: s
         ).stdout
         parsed = json.loads(raw_data)
         return _summarize_dataframe_with_prompt(parsed, prompt)
+    except Exception as exc:  # pragma: no cover - local backend may not be installed in some machines
+        logger.warning("Celesto execution unavailable for sandbox %s (%s); falling back to local execution", sandbox_name, exc)
+        return _run_local_fallback(run_id, sandbox_name, csv_bytes, prompt)
     finally:
         if comp is not None:
             try:
