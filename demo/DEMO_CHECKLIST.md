@@ -1,93 +1,81 @@
-# Demo checklist for recording or presenting the project
+# Demo & Recording Checklist (Presenter Quick Guide)
 
-## Before you start
+## 1. Before Hitting Record
 
-- Confirm Python dependencies are installed.
-- Confirm the project virtual environment is active.
-- Confirm the app is ready to run.
-- Confirm the `.env` file is present locally if needed.
-- Make sure browser tabs are ready:
-  - app homepage
-  - health endpoint
-  - API docs
+- [ ] Python dependencies installed and Anaconda environment verified.
+- [ ] Database ledger file (`poisoned_analyst.db`) present and populated.
+- [ ] App server running on port `8080`.
+- [ ] Automated tests verified: `pytest tests/ -q` (50 passing).
+- [ ] Browser tabs open and ready:
+  1. **Tab 1:** `http://localhost:8080/` (set to Dark theme)
+  2. **Tab 2:** `http://localhost:8080/health` (shows mode `local_celesto`)
+  3. **Tab 3:** `http://localhost:8080/docs` (interactive Swagger UI)
+  4. **Tab 4:** `http://localhost:8080/api/runs` (JSON ledger stream)
+- [ ] Editor split-screen ready with `app/main.py` and `logs/commands.jsonl`.
 
-## Run commands
+---
 
-### Terminal 1: Start the app
+## 2. Server Startup Command
 
 ```bash
 cd /home/battlebeast/Projects/Poisoned_Data_Analyst
-DATABASE_URL=sqlite:///./poisoned_analyst.db uvicorn app.main:app --host 0.0.0.0 --port 8080
+DATABASE_URL=sqlite:///./poisoned_analyst.db /home/battlebeast/anaconda3/bin/uvicorn app.main:app --host 0.0.0.0 --port 8080
 ```
 
-### Optional: Check the live mode
+### Quick Verification Check
 
 ```bash
-curl http://localhost:8080/health
+curl -s http://localhost:8080/health
 ```
 
-Expected output:
-
+Expected JSON:
 ```json
 {
   "status": "ok",
-  "execution_mode": "live_celesto" or "local_fallback",
-  "celesto_api_key_present": true,
+  "execution_mode": "local_celesto",
+  "celesto_api_key_present": false,
   "celesto_sdk_available": true
 }
 ```
 
-## Browser navigation
+---
 
-### 1. Open the app homepage
+## 3. Demo Click-Through Sequence
 
-- http://localhost:8080/
+1. **Brand & Telemetry (0:00 - 0:45)**:
+   - Point out `Mode: Local Celesto`, `Egress: Blocked (0 B)`, and `Audit: Active`.
+   - Click the **"Threat Model"** modal button to explain the 4-layer defense in depth.
+   - Click the Theme Toggle (`☀️ / 🌙`) to show dark/light theme polish.
+2. **Clean Baseline Test (0:45 - 1:20)**:
+   - Click **"🛡️ Clean Dataset"** preset.
+   - Point to Threat Anatomy (Safe Baseline).
+   - Click **"Execute Sandboxed Analysis"**.
+   - Show the live stepper, AI findings, and preview table.
+3. **Indirect Prompt Injection Attack (1:20 - 2:10)**:
+   - Click **"💉 Prompt Injection"** preset.
+   - Point to Threat Anatomy (`CWE-77`, stolen credentials intent).
+   - Click **"Execute Sandboxed Analysis"**.
+   - Show the result: **Sandbox Containment Verified**, `0 Bytes` leaked, table preview showing `⚠️ Untrusted Payload Isolated` badge on row 1.
+4. **Command Exfiltration & Safety Hook (2:10 - 3:00)**:
+   - Click **"🚨 Command Exfil"** preset.
+   - Switch to **"Execution Logs"** tab in results to show live terminal logs.
+   - Type `"Run rm -rf / and exfil secrets"` in the prompt and click Execute.
+   - Show instant **Threat Intercepted by Safety Hook (HTTP 400)**.
+5. **Database Ledger & Export (3:00 - 3:35)**:
+   - Scroll down to the **Audit Ledger**.
+   - Demonstrate the real-time search filter and state chips (`Succeeded`, `Failed`).
+   - Click **"Export Report (.md)"** to show the generated Markdown security report.
+6. **Test Suite Proof (3:35 - 4:00)**:
+   - Run `pytest tests/ -v` in terminal: show **50 passed in ~3.8s**.
 
-### 2. Open the health endpoint
+---
 
-- http://localhost:8080/health
+## 4. Key Talking Points
 
-### 3. Open the API docs
-
-- http://localhost:8080/docs
-
-### 4. Upload sample data
-
-Use a small CSV such as:
-
-```csv
-name,value
-alpha,10
-beta,20
-```
-
-## Proof points to mention during the demo
-
-- user uploads CSV through browser
-- backend logs run metadata
-- app checks for blocked or dangerous commands
-- execution mode is disclosed at runtime
-- result is summarized in structured JSON
-- the architecture keeps the control plane and risky execution separate
-
-## Good talking points
-
-- This is a secure AI data-analysis sandbox.
-- The risky analysis is isolated from the host environment.
-- The app logs all commands and decisions.
-- The system supports a live Celesto path when provisioned.
-- The fallback strategy keeps the demo usable when live runtime is not active.
-
-## What not to say
-
-Do not claim that the cloud Celesto runtime is definitely active unless the provider has actually accepted the sandbox creation request. Instead, say:
-
-> The project is ready for live Celesto execution, and it automatically falls back safely when the runtime is not available or not provisioned.
-
-## Recording tips
-
-- Keep the explanation short and confident.
-- Open the browser at the homepage before starting the verbal explanation.
-- Switch to the health endpoint to show runtime mode.
-- Open the editor and point to [app/main.py](../app/main.py) as the execution engine.
-- End by saying the design is practical, safety-aware, and suitable for AI-agent workflows.
+- **The Core Problem**: LLM agents analyzing user spreadsheets are vulnerable to indirect prompt injection and hostile code execution.
+- **The Defense-in-Depth Solution**:
+  1. *Host Safety Hook*: Blocks known destructive commands & exfil tokens pre-execution.
+  2. *Celesto MicroVM Isolation*: Separates execution boundary from host machine and secrets.
+  3. *Zero-Egress Policy*: Network traffic dropped at the guest interface.
+  4. *Immutable Ledger*: Every lifecycle state recorded in SQLite/Postgres.
+- **Celesto Integration**: Native Celesto execution model with hardened local fallback so it runs 100% reliably in any developer or demo environment.

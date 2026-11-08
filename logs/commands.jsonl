@@ -320,3 +320,6 @@
 {"ts": "2026-11-08T05:57:38.111755+00:00", "sandbox_name": "sbx-d2d622af4964", "command": "# sandbox created", "decision": "allow", "execution_target": "celesto_sandbox"}
 {"ts": "2026-11-08T05:57:38.112057+00:00", "sandbox_name": "sbx-d2d622af4964", "command": "Calculate total sales", "decision": "allow", "execution_target": "celesto_sandbox"}
 {"ts": "2026-11-08T05:57:38.133783+00:00", "sandbox_name": "sbx-d2d622af4964", "command": "python /tmp/poisoned-sandbox-6mtwfdus/analyze.py", "decision": "allow", "execution_target": "celesto_sandbox"}
+{"ts": "2026-11-08T06:01:25.940279+00:00", "sandbox_name": "sbx-3a4ae6ee7f5c", "command": "# sandbox created", "decision": "allow", "execution_target": "celesto_sandbox"}
+{"ts": "2026-11-08T06:01:25.940611+00:00", "sandbox_name": "sbx-3a4ae6ee7f5c", "command": "Calculate total sales", "decision": "allow", "execution_target": "celesto_sandbox"}
+{"ts": "2026-11-08T06:01:25.961916+00:00", "sandbox_name": "sbx-3a4ae6ee7f5c", "command": "python /tmp/poisoned-sandbox-c09zk2ss/analyze.py", "decision": "allow", "execution_target": "celesto_sandbox"}
