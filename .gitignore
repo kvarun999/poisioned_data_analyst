@@ -44,6 +44,10 @@ postgres-data/
 # Demo (large binary — commit separately or link from README)
 demo/*.mp4
 
+# Private presenter guides (local only, excluded from GitHub)
+demo/VIDEO_SCRIPT.md
+demo/DEMO_CHECKLIST.md
+
 # OS
 .DS_Store
 Thumbs.db

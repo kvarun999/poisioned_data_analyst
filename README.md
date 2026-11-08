@@ -148,10 +148,7 @@ curl -X POST http://localhost:8080/analyze \
 
 ## Demo and video guidance
 
-For a polished walkthrough and a structured explanation video, use:
-
-- [demo/VIDEO_SCRIPT.md](demo/VIDEO_SCRIPT.md) — full spoken script and navigation flow
-- [demo/DEMO_CHECKLIST.md](demo/DEMO_CHECKLIST.md) — pre-flight checklist for recording or live demo
+For demonstration video walkthroughs, pre-flight checklists, and presentation materials, see the [demo](demo) package.
 
 These files are kept separate so the project documentation, demo narrative, and runtime notes stay easy to follow and easy to commit in clean chunks.
 
